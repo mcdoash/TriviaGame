@@ -1,7 +1,48 @@
+:root {
+    --bg-colour1: #db9eff;    
+    --bg-colour2: #9fd4ff;
+    --accent-colour1: #68c8f9
+    --accent-colour1-dark: #52aee5;
+    --accent-colour2: #c38ff5;
+    --accent-colour2-dark: #a568d0;
+}
 * {
     margin: 0;
     box-sizing: border-box;
 }
 html {
     font-size: 16px;
+}
+
+body {
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-image: linear-gradient(to bottom right, var(--bg-colour1), var(--bg-colour2), var(--bg-colour2));
+    background-repeat: no-repeat;
+}
+
+#create-test {
+    width: 70vw;
+    height: 50vh;
+    margin: 0 auto;
+    background-color: rgba(255, 255, 255, 0.35);
+    border: 3px solid var(--accent-colour1);
+    border-radius: 2%;
+    transitition: background-color linear 1s;
+}
+#create-test:hover {
+    background-color: rgba(255, 255, 255, 0.5);
+}
+
+.button {
+    padding: 2%;
+    margin: 3%;
+    background-color: var(--accent-colour1);
+    transitition: background-color linear 1s;
+}
+.button:hover {
+    background-color: var(--accent-colour1-dark);
 }
