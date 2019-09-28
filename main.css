@@ -28,10 +28,23 @@ body {
     background-image: linear-gradient(to bottom right, var(--bg-colour1), var(--bg-colour2), var(--bg-colour2));
     background-repeat: no-repeat;
 }
+h1 {
+    font-size: 4rem;
+    font-family: var(--font1);
+    text-align: center;
+    text-shadow: 3px 3px #fff;
+    font-variant-caps: petite-caps;
+    color: var(--txt-colour-dark);
+}
+h2 {
+    font-size: 1.75rem;
+    font-family: var(--font2);
+    text-align: center;
+    color: var(--txt-colour-dark);
+}
 h3 {
     font-size: 1.5rem;
     font-family: var(--font2);
-    text-align: center;
     color: var(--txt-colour-dark);
 }
 p {
@@ -39,6 +52,23 @@ p {
     font-family: var(--font3);
     color: var(--txt-colour-dark);
 }
+.button {
+    width: 15%;
+    min-width: 100px;
+    height: 2%;
+    min-height: 25px;
+    padding: 2%;
+    margin: 3%;
+    text-align: center;
+    background-color: var(--accent-colour1);
+    border: 3px solid var(--accent-colour1-dark);
+    border-radius: 10px;
+    transition: background-color linear 0.5s;
+}
+.button:hover {
+    background-color: var(--accent-colour1-dark);
+}
+
 
 #create-test {
     width: 70vw;
@@ -58,19 +88,54 @@ form#premade * {
     display: inline-block;
 }
 
-
-.button {
-    width: 15%;
-    min-width: 100px;
-    height: 2%;
-    min-height: 25px;
-    padding: 2%;
-    margin: 3%;
-    background-color: var(--accent-colour1);
-    border: 3px solid var(--accent-colour1-dark);
-    border-radius: 10px;
+#play-test {
+    width: 100vw;
+    height: 100vh;
+    display: none;
+}
+#test-left {
+    width: 65%;
+    height: 100%;
+    padding: 7% 10%;
+    float: left;
+}
+form#test {
+    max-height: 65vh;
+    margin-top: 50px;
+    padding: 5%;
+    overflow-y: scroll;
+    background-color: rgba(255, 255, 255, 0.35);
+    border: 5px solid var(--accent-colour1-dark);
+    box-shadow: 5px 5px 25px rgba(0, 0, 0, 0.15);
+    border-radius: 5%;
     transition: background-color linear 1s;
 }
-.button:hover {
-    background-color: var(--accent-colour1-dark);
+
+.question {
+    text-align: left;
+    display: flex;
+    flex-wrap: wrap;
+}
+.question:not(:last-child) {
+    margin-bottom: 35px;
+}
+.question p {
+    width: 50%;
+    margin: 10px 0;
+}
+input[type=radio] {
+    height: 1rem;
+    margin-right: 10px;
+}
+
+
+#test-right {
+    width: 35%;
+    height: 100%;
+    padding: 5%;
+    float: left;
+}
+#test-right .button {
+    min-width: 200px;
+    min-height: 50px;
 }

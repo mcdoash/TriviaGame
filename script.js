@@ -1,5 +1,7 @@
 
-//loadTest function loads a test from the pre-existing 6 defined in triva.js
+/*
+loadTest function loads a test from the pre-existing 6 defined in triva.js
+*/
 function loadTest() {
     //get test number
     var testNum = document.forms["premade-test"]["premade-options"].value;
