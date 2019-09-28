@@ -5,7 +5,13 @@
     --accent-colour1-dark: #52aee5;
     --accent-colour2: #c38ff5;
     --accent-colour2-dark: #a568d0;
+    --txt-colour-dark: #000066;
+    
+    --font1: "Baloo Bhai";
+    --font2: "Expletus Sans";
+    --font3: "Playfair Display";
 }
+
 * {
     margin: 0;
     box-sizing: border-box;
@@ -13,7 +19,6 @@
 html {
     font-size: 16px;
 }
-
 body {
     height: 100vh;
     width: 100vw;
@@ -23,26 +28,47 @@ body {
     background-image: linear-gradient(to bottom right, var(--bg-colour1), var(--bg-colour2), var(--bg-colour2));
     background-repeat: no-repeat;
 }
+h3 {
+    font-size: 1.5rem;
+    font-family: var(--font2);
+    text-align: center;
+    color: var(--txt-colour-dark);
+}
+p {
+    font-size: 1rem;
+    font-family: var(--font3);
+    color: var(--txt-colour-dark);
+}
 
 #create-test {
     width: 70vw;
-    height: 50vh;
+    height: 75vh;
     margin: 0 auto;
     padding: 3%;
     background-color: rgba(255, 255, 255, 0.35);
     border: 5px solid var(--accent-colour2-dark);
-    box-shadow: 5px 5px 25px rgba(0, 0, 0, 0.25);
+    box-shadow: 5px 5px 25px rgba(0, 0, 0, 0.15);
     border-radius: 5%;
     transition: background-color linear 1s;
 }
 #create-test:hover {
     background-color: rgba(255, 255, 255, 0.5);
 }
+form#premade * {
+    display: inline-block;
+}
+
 
 .button {
+    width: 15%;
+    min-width: 100px;
+    height: 2%;
+    min-height: 25px;
     padding: 2%;
     margin: 3%;
     background-color: var(--accent-colour1);
+    border: 3px solid var(--accent-colour1-dark);
+    border-radius: 10px;
     transition: background-color linear 1s;
 }
 .button:hover {

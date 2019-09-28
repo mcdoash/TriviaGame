@@ -1,20 +1,49 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
+        <title>Trivia Generator</title>
+        
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta charset="UTF-8">
+        
         <link rel="stylesheet" href="main.css">
+        <link href="https://fonts.googleapis.com/css?family=Baloo+Bhai|Expletus+Sans|Playfair+Display:400,400i,900&display=swap" rel="stylesheet">
+
         
     </head>
 
     <body>
         <div id="wrapper">
+            <!--test creation screen-->
             <div id="create-test">
-                <form name="new-test">
+                <form name="premade-test" id="premade">
                     <select name="premade-options">
                         <option value="" disabled selected>Choose...</option>
-                    
+                        <option value="0">Test 1</option>
+                        <option value="1">Test 2</option>
+                        <option value="2">Test 3</option>
+                        <option value="3">Test 4</option>
+                        <option value="4">Test 5</option>
+                        <option value="5">Test 6</option>
+                        <option value="-1">Random</option>
                     </select>
+
+                    <div class="button" id="load-test" onclick="loadTest()"><h3>Load</h3></div>
+                </form>
+                
+                <form name="user-test">
                 </form>
             </div>
+            
+            
+            <!--trivia game screen-->
+            <div id="play-test">
+            
+            </div>
+            
         </div>
+        
+        <script src="script.js"></script>
+        <script src="trivia.js"></script>
     </body>
 </html>
