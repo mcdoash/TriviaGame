@@ -5,6 +5,16 @@ function loadTest() {
     //get test number
     let testNum = document.forms["premade-test"]["premade-options"].value;
     
+    if(!testNum) {
+        alert("Please select a test to load.");
+        return;
+    }
+    if(testNum.localeCompare("Random")) {
+        let keys = Object.keys(tests);
+        testNum = keys[Math.floor(Math.random() * 6)];
+        console.log(testNum);
+    }
+    
     //remove create test screen and show test screen 
     let createScreen = document.getElementById("create-test");
     let testScreen = document.getElementById("play-test");
@@ -38,6 +48,9 @@ function loadTest() {
 }
 
 
+function checkTest() {
+    
+}
 /*
 function sendPost(){
 			req = new XMLHttpRequest();

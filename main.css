@@ -99,20 +99,23 @@ form#premade * {
     display: inline-block;
 }
 
+
 #play-test {
     width: 100vw;
     height: 100vh;
     display: none;
 }
+
+
 #test-left {
     width: 65%;
     height: 100%;
-    padding: 7% 10%;
+    padding: 5% 7% 10%;
     float: left;
 }
 form#test {
     max-height: 65vh;
-    margin-top: 50px;
+    margin-top: 5vh;
     padding: 5%;
     overflow-y: scroll;
     background-color: rgba(255, 255, 255, 0.35);
