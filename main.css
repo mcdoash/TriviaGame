@@ -2,10 +2,12 @@
     --bg-colour1: #db9eff; /*light purple*/    
     --bg-colour2: #9fd4ff; /*light blue*/
     --accent-colour1: #68c8f9;
-    --accent-colour1-dark: #52aee5;
+    --accent-colour1-dark: #1e89c8;
     --accent-colour2: #c38ff5;
     --accent-colour2-dark: #a568d0;
     --txt-colour-dark: #000066;
+    --txt-colour-medium: #80bfff;
+    --txt-colour-light: #e5ffff;
     
     --font1: "Baloo Bhai";
     --font2: "Expletus Sans";
@@ -23,6 +25,7 @@ body {
     height: 100vh;
     width: 100vw;
     display: flex;
+    overflow: hidden;
     justify-content: center;
     align-items: center;
     background-image: linear-gradient(to bottom right, var(--bg-colour1), var(--bg-colour2), var(--bg-colour2));
@@ -59,14 +62,22 @@ p {
     min-height: 25px;
     padding: 2%;
     margin: 3%;
+    font-size: 1.6rem;
+    font-family: var(--font2);
+    color: var(--txt-colour-light);
+    text-shadow: 3px 3px var(--txt-colour-dark);
     text-align: center;
+    cursor: pointer;
     background-color: var(--accent-colour1);
     border: 3px solid var(--accent-colour1-dark);
     border-radius: 10px;
-    transition: background-color linear 0.5s;
+    transition: linear 0.25s;
 }
 .button:hover {
+    color: var(--txt-colour-dark);
+    text-shadow: 3px 3px var(--txt-colour-light);
     background-color: var(--accent-colour1-dark);
+    border: 3px solid var(--accent-colour1);
 }
 
 
@@ -79,7 +90,7 @@ p {
     border: 5px solid var(--accent-colour2-dark);
     box-shadow: 5px 5px 25px rgba(0, 0, 0, 0.15);
     border-radius: 5%;
-    transition: background-color linear 1s;
+    transition: background-color linear 0.5s;
 }
 #create-test:hover {
     background-color: rgba(255, 255, 255, 0.5);
@@ -108,7 +119,10 @@ form#test {
     border: 5px solid var(--accent-colour1-dark);
     box-shadow: 5px 5px 25px rgba(0, 0, 0, 0.15);
     border-radius: 5%;
-    transition: background-color linear 1s;
+    transition: background-color linear 0.5s;
+}
+form#test:hover {
+    background-color: rgba(255, 255, 255, 0.5);
 }
 
 .question {
@@ -119,9 +133,32 @@ form#test {
 .question:not(:last-child) {
     margin-bottom: 35px;
 }
-.question p {
+.question h3 {
+    display: inline-block;
+    position: relative;
+    cursor: help;
+}
+.question .tooltip {
+    width: 250px;
+    padding: 2%;
+    position: absolute;
+    right: 0;
+    z-index: 1;
+    visibility: hidden;
+    background-color: var(--bg-colour2);
+    border: 2px solid var(--accent-colour1-dark);
+    border-radius: 5%;
+}
+.question h3:hover .tooltip {
+    visibility: visible;
+}
+.question label {
     width: 50%;
     margin: 10px 0;
+    cursor: pointer;
+    font-size: 1.25rem;
+    font-family: var(--font3);
+    color: var(--txt-colour-dark);
 }
 input[type=radio] {
     height: 1rem;

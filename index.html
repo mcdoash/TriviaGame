@@ -19,16 +19,16 @@
                 <form name="premade-test" id="premade">
                     <select name="premade-options">
                         <option value="" disabled selected>Choose...</option>
-                        <option value="0">Test 1</option>
-                        <option value="1">Test 2</option>
-                        <option value="2">Test 3</option>
-                        <option value="3">Test 4</option>
-                        <option value="4">Test 5</option>
-                        <option value="5">Test 6</option>
-                        <option value="-1">Random</option>
+                        <option value="Test 1">Test 1</option>
+                        <option value="Test 2">Test 2</option>
+                        <option value="Test 3">Test 3</option>
+                        <option value="Test 4">Test 4</option>
+                        <option value="Test 5">Test 5</option>
+                        <option value="Test 6">Test 6</option>
+                        <option value="random">Random</option>
                     </select>
 
-                    <div class="button" id="load-test" onclick="loadTest()"><h3>Load</h3></div>
+                    <div class="button" id="load-test" onclick="loadTest()">Load</div>
                 </form>
                 
                 <form name="user-test">
@@ -43,45 +43,7 @@
                     <h2 id="test info">Category | Difficulty | #Questions</h2>
                     
                     <form id="test">
-                        <div class="question">
-                            <h3>Text for question 1</h3>
-                            <p><input type="radio" name="" value="">Option 1</p>
-                            <p><input type="radio" name="" value="">Option 2</p>
-                            <p><input type="radio" name="" value="">Option 3</p>
-                            <p><input type="radio" name="" value="">Option 4</p>
-                        </div>
-                        
-                        <div class="question">
-                            <h3>Text for question 2</h3>
-                            <p><input type="radio" name="" value="">Option 1</p>
-                            <p><input type="radio" name="" value="">Option 2</p>
-                            <p><input type="radio" name="" value="">Option 3</p>
-                            <p><input type="radio" name="" value="">Option 4</p>
-                        </div>
-                        
-                        <div class="question">
-                            <h3>Text for question 3</h3>
-                            <p><input type="radio" name="" value="">Option 1</p>
-                            <p><input type="radio" name="" value="">Option 2</p>
-                            <p><input type="radio" name="" value="">Option 3</p>
-                            <p><input type="radio" name="" value="">Option 4</p>
-                        </div>
-                        
-                        <div class="question">
-                            <h3>Text for question 4</h3>
-                            <p><input type="radio" name="" value="">Option 1</p>
-                            <p><input type="radio" name="" value="">Option 2</p>
-                            <p><input type="radio" name="" value="">Option 3</p>
-                            <p><input type="radio" name="" value="">Option 4</p>
-                        </div>
-                        
-                        <div class="question">
-                            <h3>Text for question 5</h3>
-                            <p><input type="radio" name="" value="">Option 1</p>
-                            <p><input type="radio" name="" value="">Option 2</p>
-                            <p><input type="radio" name="" value="">Option 3</p>
-                            <p><input type="radio" name="" value="">Option 4</p>
-                        </div>
+                        <!--questions will appear here when test is selected-->
                     </form>
                 </div>
                 
@@ -89,10 +51,8 @@
                     <div id="score">
                         <h1><sup>x</sup>&frasl;<sub>y</sub></h1>
                     </div>
-                    <div class="button"><h3>Clear Test</h3>
-                    </div>
-                    <div class="button"><h3>Check Test</h3>
-                    </div>
+                    <div class="button">Clear Test</div>
+                    <div class="button">Check Test</div>
                 </div>
             </div>
             
