@@ -30,12 +30,8 @@ function loadTest() {
         testNum = keys[Math.floor(Math.random() * 6)];
     }
     
-    //remove create test screen and show test screen 
-    let createScreen = document.getElementById("create-test");
-    let testScreen = document.getElementById("play-test");
+    document.getElementById("test-title").textContent = testNum;
     
-    createScreen.style.display = "none";
-    testScreen.style.display = "block";
     
     let test = tests[testNum];
     console.log(test);
@@ -59,7 +55,13 @@ function loadTest() {
         html += '</div>';
     }
     
+    //remove create test screen and show test screen 
+    let createScreen = document.getElementById("create-test");
+    let testScreen = document.getElementById("play-test");
     document.getElementById("test").innerHTML = html;
+    
+    createScreen.style.display = "none";
+    testScreen.style.display = "block";
 }
 
 

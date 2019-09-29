@@ -67,6 +67,7 @@ p {
     color: var(--txt-colour-light);
     text-shadow: 3px 3px var(--txt-colour-dark);
     text-align: center;
+    vertical-align: middle;
     cursor: pointer;
     background-color: var(--accent-colour1);
     border: 3px solid var(--accent-colour1-dark);
@@ -98,6 +99,7 @@ p {
     left: 0;
     top: 6vh;
     background-color: var(--accent-colour2-dark);
+    border: 3px solid var(--accent-colour2);
     border-radius: 0 0 10px 10px;
     transition: opacity linear 0.5s;
 }
@@ -106,6 +108,7 @@ p {
     padding: 2% 2% 2% 5%;
     display: block;
     cursor: pointer;
+    border-top: 1px solid var(--accent-colour2)  
 }
 
 .dropdown h3:last-child {
@@ -136,6 +139,11 @@ p {
 }
 form#premade * {
     display: inline-block;
+}
+form#premade #test-selected {
+    width: 100%;
+    height: 100%;
+    border-bottom: 2px solid var(--txt-colour-dark);
 }
 
 
