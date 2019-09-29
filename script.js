@@ -1,9 +1,25 @@
 /*
+
+*/
+function setOption(selected) {
+    let options = document.getElementsByClassName("option");
+    
+    for(let i=0; i<options.length; i++) {
+        options[i].classList.remove("selected");
+    }
+    selected.classList.add("selected");
+    
+    document.getElementById("test-selected").innerHTML = selected.textContent;
+}
+
+
+/*
 loadTest function loads a test from the pre-existing 6 defined in triva.js
 */
 function loadTest() {
     //get test number
-    let testNum = document.forms["premade-test"]["premade-options"].value;
+    let testNum = document.getElementById("test-selected").textContent;
+    console.log(document.getElementById("test-selected").textContent);
     
     if(!testNum) {
         alert("Please select a test to load.");
@@ -12,7 +28,6 @@ function loadTest() {
     if(testNum.localeCompare("Random")) {
         let keys = Object.keys(tests);
         testNum = keys[Math.floor(Math.random() * 6)];
-        console.log(testNum);
     }
     
     //remove create test screen and show test screen 
@@ -49,7 +64,16 @@ function loadTest() {
 
 
 function checkTest() {
-    
+    if(!allAnswered) {
+        //set unanswered q's text colour to red
+        alert("Please answer all questions.");
+        return;
+    }
+
+    //reset unselected/incorrect/correct styling
+    //calc num correct
+    //add checkmark/styling to correct
+    //add x/styling to incorrect
 }
 /*
 function sendPost(){
@@ -63,6 +87,4 @@ function sendPost(){
 		}
 
 */
-
-
 

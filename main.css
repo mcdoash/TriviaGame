@@ -58,8 +58,8 @@ p {
 .button {
     width: 15%;
     min-width: 100px;
-    height: 2%;
-    min-height: 25px;
+    height: 7vh;
+    min-height: 60px;
     padding: 2%;
     margin: 3%;
     font-size: 1.6rem;
@@ -78,6 +78,45 @@ p {
     text-shadow: 3px 3px var(--txt-colour-light);
     background-color: var(--accent-colour1-dark);
     border: 3px solid var(--accent-colour1);
+}
+.dropbtn {
+    width: 50%;
+    height: 7vh;
+    min-height: 60px;
+    padding: 2%;
+    margin: 3%;
+    padding: 2%;
+    position: relative;
+    background-color: var(--accent-colour2);
+    border: 3px solid var(--accent-colour2-dark);
+    border-radius: 10px;
+}
+.dropdown {
+    width: 50%;
+    opacity: 0;
+    position: absolute;
+    left: 0;
+    top: 6vh;
+    background-color: var(--accent-colour2-dark);
+    border-radius: 0 0 10px 10px;
+    transition: opacity linear 0.5s;
+}
+.dropdown h3 {
+    width: 100%;
+    padding: 2% 2% 2% 5%;
+    display: block;
+    cursor: pointer;
+}
+
+.dropdown h3:last-child {
+    border-radius: 0 0 10px 10px;
+}
+.dropdown h3:hover, .dropdown h3.selected {
+    background-color: var(--accent-colour2);
+    
+}
+.dropbtn:hover .dropdown {
+    opacity: 1;
 }
 
 
