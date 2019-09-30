@@ -280,8 +280,16 @@ function makeRandom() {
 
 function loadCustom() {
     let num = document.forms["user-test"]["num"].value;
-    let category = document.getElementById("category").getAttribute("name");
+    let categoryId = document.getElementById("category").getAttribute("name");
     let difficulty = document.getElementById("difficulty").textContent.toLowerCase();
+    
+    let testInfo = document.getElementById("test info");
+    let testTitle = document.getElementById("test-title");
+    let category = document.getElementById("category").textContent;
+    
+    testTitle.innerHTML = category;
+    testInfo.innerHTML = difficulty + " | " + num + " questions";
+    
     
     let req = new XMLHttpRequest()
     req.onreadystatechange = function() {
@@ -296,7 +304,8 @@ function loadCustom() {
             }
         }
     }
-    req.open("GET", ("https://opentdb.com/api.php?amount=" + num + "&category=" + category + "&difficulty=" + difficulty));
-    console.log("https://opentdb.com/api.php?amount=" + num + "&category=" + category + "&difficulty=" + difficulty);
+    req.open("GET", ("https://opentdb.com/api.php?amount=" + num + "&category=" + categoryId + "&difficulty=" + difficulty));
+    
+    console.log("https://opentdb.com/api.php?amount=" + num + "&category=" + categoryId + "&difficulty=" + difficulty);
     req.send();
 }

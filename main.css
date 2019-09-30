@@ -33,6 +33,7 @@ body {
 }
 h1 {
     font-size: 4rem;
+    line-height: 3rem;
     font-family: var(--font1);
     text-align: center;
     text-shadow: 3px 3px #fff;
@@ -180,6 +181,9 @@ form#premade #test-selected {
     height: 100%;
     padding: 5% 7% 10%;
     float: left;
+}
+#test-title {
+    margin-bottom: 2vh;
 }
 form#test {
     max-height: 65vh;
