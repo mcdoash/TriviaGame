@@ -69,14 +69,23 @@ function createTest(test) {
         q = test[i];
         html += '<div class="question" id="q' + i + '"><h3>' + q.question + '<span class="tooltip"><p>Category: ' + q.category + '<br/>Difficulty: ' + q.difficulty + '</span></h3>';
 
-        //ADD RANDOM FEATURE
+        //get options
         let options = [];
+        
         for(let x=0; x<q.incorrect_answers.length; x++) {
             options.push(q.incorrect_answers[x]);
         }
-        
         options.push(q.correct_answer);
-
+        
+        //randomize option order
+        for(let i=options.length-1; i>0; i--) {
+            let rand = Math.floor(Math.random() * i);
+            let temp = options[rand];
+            options[rand] = options[i];
+            options[i] = temp;
+        }
+         
+        //build options
         for(let x=0; x<options.length; x++) {
             html += '<label><input type="radio" name="' + i + '" value="' + options[x] + '">' + options[x] +'</label>'
         }
@@ -237,6 +246,10 @@ function clearTest() {
             options[x].checked = false;
         }
     }
+    
+    //reset score
+    let score = document.getElementById("score");
+    score.innerHTML = "<sup></sup>&frasl;<sub>" + test.length + "</sub>";
 }
 
 
@@ -264,6 +277,15 @@ function clearStyling() {
     }
 }
 
+
+function newTest() {
+    //remove test screen and show create test screen 
+    let createScreen = document.getElementById("create-test");
+    let testScreen = document.getElementById("play-test");
+    
+    testScreen.style.display = "none";
+    createScreen.style.display = "block";
+}
 
 function makeRandom() {
     let req = new XMLHttpRequest()

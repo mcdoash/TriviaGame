@@ -57,12 +57,9 @@
                         </div>
                     </div>
                     
-                    <div class="button" id="custom-test" onclick="loadCustom()">Load</div>
+                    <div class="button" id="custom-test" onclick="loadCustom()">Create</div>
+                    <div class="button"  onclick="makeRandom()">Random</div>
                 </form>
-                
-                <hr>
-                
-                <div class="button"  onclick="makeRandom()">Random</div>
             </div>
             
             
@@ -71,7 +68,7 @@
             <div id="play-test">
                 <div id="test-left">
                     <h1 id="test-title">Random Test</h1>
-                    <h2 id="test info">Mixed | Difficulty | #Questions</h2>
+                    <h2 id="test info"></h2>
                     
                     <form id="test">
                         <!--questions will appear here when test is selected-->
@@ -80,10 +77,11 @@
                 
                 <div id="test-right">
                     <h1 id="score">
-                        <sup>x</sup>&frasl;<sub>y</sub>
+                        <sup></sup>&frasl;<sub></sub>
                     </h1>
+                    <div class="button" id="checkbtn" onclick="checkTest()" style="width: 93%;">Check Test</div>
                     <div class="button" onclick="clearTest()">Clear Test</div>
-                    <div class="button" id="checkbtn" onclick="checkTest()">Check Test</div>
+                    <div class="button" id="checkbtn" onclick="newTest()">New Test</div>
                 </div>
             </div>
             
