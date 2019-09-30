@@ -2,24 +2,25 @@
 
 */
 function setOption(selected) {
-    let options = document.getElementsByClassName("option");
+    let options = selected.parentNode.children;
     
-    for(let i=0; i<options.length; i++) {
+    for(let i=1; i<options.length; i++) {
         options[i].classList.remove("selected");
     }
     selected.classList.add("selected");
     
-    document.getElementById("test-selected").innerHTML = selected.textContent;
+    //gets h3 which displays selected option
+    selected.parentNode.parentNode.firstElementChild.innerHTML = selected.innerText;
 }
 
-let testNum = "";
+let test;
 
 /*
 Loads a test from the pre-existing 6 defined in triva.js
 */
 function loadTest() {
     //get test number
-    testNum = document.getElementById("test-selected").textContent;
+    testNum = document.getElementById("test-num").textContent;
     
     if(!testNum) {
         alert("Please select a test to load.");
@@ -28,7 +29,7 @@ function loadTest() {
     
     document.getElementById("test-title").textContent = testNum;
     
-    let test = tests[testNum];
+    test = tests[testNum];
     
     createTest(test);    
 }
@@ -56,6 +57,10 @@ function createTest(test) {
         html += '</div>';
     }
     
+    //display score num
+    let score = document.getElementById("score");
+    score.innerHTML = "<sup></sup>&frasl;<sub>" + test.length + "</sub>";
+    
     //remove create test screen and show test screen 
     let createScreen = document.getElementById("create-test");
     let testScreen = document.getElementById("play-test");
@@ -73,7 +78,6 @@ function checkTest() {
     clearStyling();
     
     let allAnswered = true;
-    let test = tests[testNum];
     let numCorrect = 0;
     let correct = [];
     let incorrect = [];
@@ -133,6 +137,10 @@ function checkTest() {
         let checkBtn = document.getElementById("checkbtn");
         checkBtn.removeAttribute("onclick");
         checkBtn.classList.add("disabled");
+        
+        //display score
+        let score = document.getElementById("score");
+        score.innerHTML = "<sup>" + numCorrect + "</sup>&frasl;<sub>" + test.length + "</sub>";
     }
 }
 
@@ -235,10 +243,34 @@ function makeRandom() {
     let req = new XMLHttpRequest()
     req.onreadystatechange = function() {
         if(this.readyState == 4 && this.status == 200) {
-            
-            createTest(JSON.parse(req.responseText).results);
+            test = JSON.parse(req.responseText).results;
+            createTest(test);
         }
     }
     req.open("GET", "https://opentdb.com/api.php?amount=10");
     req.send();
 }
+
+
+function getCategories() {
+    let req = new XMLHttpRequest()
+    req.onreadystatechange = function() {
+        if(this.readyState == 4 && this.status == 200) {
+            addCategories(JSON.parse(req.responseText).trivia_categories);
+        }
+    }
+    req.open("GET", "https://opentdb.com/api_category.php");
+    req.send();
+}
+
+function addCategories(categories) {
+    let menu = document.getElementById("categories");
+    let html = "";
+    
+    for(let i=0; i<categories.length; i++) {
+        html += '<h3 class="option" onclick="setOption(this)">' + categories[i].name + '</h3>';
+    }
+    
+    menu.innerHTML = html;
+}
+

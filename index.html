@@ -15,32 +15,54 @@
         <script src="https://use.fontawesome.com/releases/v5.10.2/js/all.js" data-search-pseudo-elements></script>
     </head>
 
-    <body>
+    <body onload="getCategories()">
         <div id="wrapper">
             <!--test creation screen-->
             <div id="create-test">
                 <form name="premade-test" id="premade">
+                    <h1>Pre-made Test</h1>
                     <div class="dropbtn">
-                        <h3 id="test-selected">Choose test...</h3>
+                        <h3 id="test-num">Choose test...</h3>
                         <div class="dropdown">
                             <h3 class="option" onclick="setOption(this)">Test 1</h3>
                             <h3 class="option" onclick="setOption(this)">Test 2</h3>
                             <h3 class="option" onclick="setOption(this)">Test 3</h3>
                             <h3 class="option" onclick="setOption(this)">Test 4</h3>
                             <h3 class="option" onclick="setOption(this)">Test 5</h3>
-                            <h3 class="option" onclick="setOption(this)">Random</h3>
                         </div>
-                    
                     </div>
 
                     <div class="button" id="load-test" onclick="loadTest()">Load</div>
-                    
-                    <div class="button"  onclick="makeRandom()">Random</div>
                 </form>
                 
+                <hr>
+                
                 <form name="user-test">
+                    <h1>Create your own</h1>
+                    <input type="number" placeholder="# Questions" min="1" max="99">
+                    
+                    <div class="dropbtn">
+                        <h3 id="category">Category...</h3>
+                        <div class="dropdown" id="categories">
+                            <!--options will go here from api-->
+                        </div>
+                    </div>
+                    
+                    <div class="dropbtn">
+                        <h3 id="difficulty">Difficulty...</h3>
+                        <div class="dropdown" id="difficulty">
+                            <h3 class="option" onclick="setOption(this)">Easy</h3>
+                            <h3 class="option" onclick="setOption(this)">Medium</h3>
+                            <h3 class="option" onclick="setOption(this)">Hard</h3>
+                        </div>
+                    </div>
                 </form>
+                
+                <hr>
+                
+                <div class="button"  onclick="makeRandom()">Random</div>
             </div>
+            
             
             
             <!--trivia game screen-->
@@ -55,9 +77,9 @@
                 </div>
                 
                 <div id="test-right">
-                    <div id="score">
-                        <h1><sup>x</sup>&frasl;<sub>y</sub></h1>
-                    </div>
+                    <h1 id="score">
+                        <sup>x</sup>&frasl;<sub>y</sub>
+                    </h1>
                     <div class="button" onclick="clearTest()">Clear Test</div>
                     <div class="button" id="checkbtn" onclick="checkTest()">Check Test</div>
                 </div>

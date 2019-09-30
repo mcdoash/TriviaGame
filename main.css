@@ -55,6 +55,10 @@ p {
     font-family: var(--font3);
     color: var(--txt-colour-dark);
 }
+hr {
+    margin: 2% 0;
+    border-bottom: 2px solid var(--accent-colour2-dark);
+}
 .button {
     width: 15%;
     min-width: 100px;
@@ -93,11 +97,15 @@ p {
     border-radius: 10px;
 }
 .dropdown {
-    width: 50%;
+    width: 100%;
+    max-height: 250px;
+    overflow-y: scroll;
     opacity: 0;
+    visibility: hidden;
     position: absolute;
     left: 0;
     top: 6vh;
+    z-index: 99;
     background-color: var(--accent-colour2-dark);
     border: 3px solid var(--accent-colour2);
     border-radius: 0 0 10px 10px;
@@ -110,7 +118,6 @@ p {
     cursor: pointer;
     border-top: 1px solid var(--accent-colour2)  
 }
-
 .dropdown h3:last-child {
     border-radius: 0 0 10px 10px;
 }
@@ -119,7 +126,22 @@ p {
     
 }
 .dropbtn:hover .dropdown {
+    visibility: visible;
     opacity: 1;
+}
+input[type="number"] {
+    width: 50%;
+    height: 7vh;
+    min-height: 60px;
+    padding: 2%;
+    margin: 3%;
+    font-size: 1.5rem;
+    font-family: var(--font2);
+    color: var(--txt-colour-dark);
+    background-color: var(--accent-colour2);
+    outline: none;
+    border: 3px solid var(--accent-colour2-dark);
+    border-radius: 10px;
 }
 
 
