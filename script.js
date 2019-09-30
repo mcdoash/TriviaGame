@@ -28,8 +28,13 @@ function loadTest() {
     
     document.getElementById("test-title").textContent = testNum;
     
-    
     let test = tests[testNum];
+    
+    createTest(test);    
+}
+
+
+function createTest(test) {
     let html = "";
     let q;
 
@@ -224,16 +229,16 @@ function clearStyling() {
        }
     }
 }
-/*
-function sendPost(){
-			req = new XMLHttpRequest();
-			//We won't even handle the response
-			req.open("POST", `http://localhost:3000/`);
-			//Below is the body, it is in plain text
-			obj = {name : "dave", age : "old"};
-			
-			req.send(JSON.stringify(obj));
-		}
 
-*/
 
+function makeRandom() {
+    let req = new XMLHttpRequest()
+    req.onreadystatechange = function() {
+        if(this.readyState == 4 && this.status == 200) {
+            
+            createTest(JSON.parse(req.responseText).results);
+        }
+    }
+    req.open("GET", "https://opentdb.com/api.php?amount=10");
+    req.send();
+}
