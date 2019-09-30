@@ -29,11 +29,12 @@ function getCategories() {
 
 
 /*
-
+Sets the selected option in a dropdown
 */
 function setOption(selected) {
     let options = selected.parentNode.children;
     
+    //remove styling for selected for all options
     for(let i=1; i<options.length; i++) {
         options[i].classList.remove("selected");
     }
@@ -41,7 +42,11 @@ function setOption(selected) {
     
     //gets h3 which displays selected option
     let showSelected = selected.parentNode.parentNode.firstElementChild;
+    
+    //set h3 text to the content of selected option
     showSelected.innerHTML = selected.innerText;
+    
+    //set the name to the selected name (useful for the category id (different than above)
     showSelected.setAttribute("name", selected.getAttribute("name"));
 }
 
@@ -67,6 +72,75 @@ function loadTest() {
     test = tests[testNum];
     
     createTest(test);    
+}
+
+
+/*
+Creates a random test with 10 questions from the open trivia database
+*/
+function loadRandom() {
+    //show loading modal
+    let modal = document.getElementById("modal");
+    modal.style.display = "block";
+    
+    let req = new XMLHttpRequest()
+    req.onreadystatechange = function() {
+        if(this.readyState == 4 && this.status == 200) {
+            //response code of 0 corresponds with successful request
+            if(JSON.parse(req.responseText).response_code == 0) {
+                test = JSON.parse(req.responseText).results;
+                createTest(test);
+            }
+            //unsuccessful request
+            else {
+                alert("Request failed.");
+            }
+        }
+    }
+    req.open("GET", "https://opentdb.com/api.php?amount=10");
+    req.send();
+}
+
+
+/*
+Creates a test from the open trivia database with the user's enteres parameters
+*/
+function loadCustom() {
+    //show loading modal
+    let modal = document.getElementById("modal");
+    modal.style.display = "block";
+    
+    //get test parameters
+    let num = document.forms["user-test"]["num"].value;
+    let categoryId = document.getElementById("category").getAttribute("name");
+    let difficulty = document.getElementById("difficulty").textContent.toLowerCase();
+    
+    //set test info
+    let testInfo = document.getElementById("test info");
+    let testTitle = document.getElementById("test-title");
+    let category = document.getElementById("category").textContent;
+
+    testTitle.innerHTML = category;
+    testInfo.innerHTML = difficulty + " | " + num + " questions";
+    
+    
+    //trivia request
+    let req = new XMLHttpRequest()
+    req.onreadystatechange = function() {
+        if(this.readyState == 4 && this.status == 200) {
+            //response code of 0 corresponds with successful request
+            if(JSON.parse(req.responseText).response_code == 0) {
+                test = JSON.parse(req.responseText).results;
+                createTest(test);
+            }
+            //unsuccessful request
+            else {
+                alert("Request failed.");
+            }
+        }
+    }
+    req.open("GET", ("https://opentdb.com/api.php?amount=" + num + "&category=" + categoryId + "&difficulty=" + difficulty));
+    req.send();
 }
 
 
@@ -295,66 +369,10 @@ function newTest() {
     //clear test
     clearTest();
     
-    //remove test screen and loading modal and show create test screen 
+    //remove test screen and show create test screen 
     let createScreen = document.getElementById("create-test");
     let testScreen = document.getElementById("play-test");
     
     testScreen.style.display = "none";
-    createScreen.style.display = "block";
-}
-
-
-/*
-Creates a random test with 10 questions from the open trivia database
-*/
-function loadRandom() {
-    let req = new XMLHttpRequest()
-    req.onreadystatechange = function() {
-        if(this.readyState == 4 && this.status == 200) {
-            test = JSON.parse(req.responseText).results;
-            createTest(test);
-        }
-    }
-    req.open("GET", "https://opentdb.com/api.php?amount=10");
-    req.send();
-}
-
-
-/*
-Creates a test from the open trivia database with the user's enteres parameters
-*/
-function loadCustom() {
-    //show loading modal
-    let modal = document.getElementById("modal");
-    modal.style.display = "block";
-    
-    //get test parameters
-    let num = document.forms["user-test"]["num"].value;
-    let categoryId = document.getElementById("category").getAttribute("name");
-    let difficulty = document.getElementById("difficulty").textContent.toLowerCase();
-    
-    //set test info
-    let testInfo = document.getElementById("test info");
-    let testTitle = document.getElementById("test-title");
-    let category = document.getElementById("category").textContent;
-
-    testTitle.innerHTML = category;
-    testInfo.innerHTML = difficulty + " | " + num + " questions";
-    
-    //trivia request
-    let req = new XMLHttpRequest()
-    req.onreadystatechange = function() {
-        if(this.readyState == 4 && this.status == 200) {
-            //response code of 0 corresponds with successful request
-            if(JSON.parse(req.responseText).response_code == 0) {
-                test = JSON.parse(req.responseText).results;
-                createTest(test);
-            }
-            else {
-                alert("Request failed.");
-            }
-        }
-    }
-    req.open("GET", ("https://opentdb.com/api.php?amount=" + num + "&category=" + categoryId + "&difficulty=" + difficulty));
-    req.send();
+    createScreen.style.display = "flex";
 }
