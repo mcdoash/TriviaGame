@@ -1,23 +1,29 @@
+let test; //global test variable for current test
+
+/*
+Gets a list of all the available categories from open trivia database and adds it to the dropdown menu (called on load)
+*/
 function getCategories() {
     let req = new XMLHttpRequest()
+    
     req.onreadystatechange = function() {
         if(this.readyState == 4 && this.status == 200) {
-            addCategories(JSON.parse(req.responseText).trivia_categories);
+            //get the list of categories
+            let categories = JSON.parse(req.responseText).trivia_categories;
+            
+            //get the dropdown for categories
+            let menu = document.getElementById("categories");
+            let html = "";
+            
+            //add each category to dropdown
+            for(let i=0; i<categories.length; i++) {
+                html += '<h3 class="option" name="' + categories[i].id + '" onclick="setOption(this)">' + categories[i].name + '</h3>';
+            }
+            menu.innerHTML = html;
         }
     }
     req.open("GET", "https://opentdb.com/api_category.php");
     req.send();
-}
-
-function addCategories(categories) {
-    let menu = document.getElementById("categories");
-    let html = "";
-    
-    for(let i=0; i<categories.length; i++) {
-        html += '<h3 class="option" name="' + categories[i].id + '" onclick="setOption(this)">' + categories[i].name + '</h3>';
-    }
-    
-    menu.innerHTML = html;
 }
 
 
@@ -39,7 +45,6 @@ function setOption(selected) {
     showSelected.setAttribute("name", selected.getAttribute("name"));
 }
 
-let test;
 
 /*
 Loads a test from the pre-existing 6 defined in triva.js
@@ -71,6 +76,7 @@ function createTest(test) {
 
     for(let i=0; i<test.length; i++) {
         q = test[i];
+        
         html += '<div class="question" id="q' + i + '"><h3>' + q.question + '<span class="tooltip"><p>Category: ' + q.category + '<br/>Difficulty: ' + q.difficulty + '</span></h3>';
 
         //get options
@@ -275,18 +281,16 @@ function clearStyling() {
         
         questions[i].classList.remove("incorrect", "correct", "unanswered");
         
-        //removes span with check/x mark, if there is one
-       if(feedbackBar.length > 0){
-           try {
-               questions[i].removeChild(feedbackBar[i]);
-           } catch (e) {
-               //Catch Statement
-           }
+        //removes all span with check/x mark
+        while(feedbackBar.length > 0){
+           feedbackBar[0].parentNode.removeChild(feedbackBar[0]);
        }
     }
 }
 
-
+/*
+Removes the trivia game screen and brings up the create test screen to allow user to create a new test
+*/
 function newTest() {
     //clear test
     clearTest();
@@ -299,7 +303,11 @@ function newTest() {
     createScreen.style.display = "block";
 }
 
-function makeRandom() {
+
+/*
+Creates a random test with 10 questions from the open trivia database
+*/
+function loadRandom() {
     let req = new XMLHttpRequest()
     req.onreadystatechange = function() {
         if(this.readyState == 4 && this.status == 200) {
@@ -312,23 +320,28 @@ function makeRandom() {
 }
 
 
+/*
+Creates a test from the open trivia database with the user's enteres parameters
+*/
 function loadCustom() {
     //show loading modal
     let modal = document.getElementById("modal");
     modal.style.display = "block";
     
+    //get test parameters
     let num = document.forms["user-test"]["num"].value;
     let categoryId = document.getElementById("category").getAttribute("name");
     let difficulty = document.getElementById("difficulty").textContent.toLowerCase();
     
+    //set test info
     let testInfo = document.getElementById("test info");
     let testTitle = document.getElementById("test-title");
     let category = document.getElementById("category").textContent;
-    
+
     testTitle.innerHTML = category;
     testInfo.innerHTML = difficulty + " | " + num + " questions";
     
-    
+    //trivia request
     let req = new XMLHttpRequest()
     req.onreadystatechange = function() {
         if(this.readyState == 4 && this.status == 200) {
@@ -343,7 +356,5 @@ function loadCustom() {
         }
     }
     req.open("GET", ("https://opentdb.com/api.php?amount=" + num + "&category=" + categoryId + "&difficulty=" + difficulty));
-    
-    console.log("https://opentdb.com/api.php?amount=" + num + "&category=" + categoryId + "&difficulty=" + difficulty);
     req.send();
 }
