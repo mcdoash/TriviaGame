@@ -1,3 +1,27 @@
+function getCategories() {
+    let req = new XMLHttpRequest()
+    req.onreadystatechange = function() {
+        if(this.readyState == 4 && this.status == 200) {
+            addCategories(JSON.parse(req.responseText).trivia_categories);
+        }
+    }
+    req.open("GET", "https://opentdb.com/api_category.php");
+    req.send();
+}
+
+function addCategories(categories) {
+    let menu = document.getElementById("categories");
+    let html = "";
+    
+    for(let i=0; i<categories.length; i++) {
+        html += '<h3 class="option" name="' + categories[i].id + '" onclick="setOption(this)">' + categories[i].name + '</h3>';
+    }
+    
+    menu.innerHTML = html;
+}
+
+
+
 /*
 
 */
@@ -10,7 +34,9 @@ function setOption(selected) {
     selected.classList.add("selected");
     
     //gets h3 which displays selected option
-    selected.parentNode.parentNode.firstElementChild.innerHTML = selected.innerText;
+    let showSelected = selected.parentNode.parentNode.firstElementChild;
+    showSelected.innerHTML = selected.innerText;
+    showSelected.setAttribute("name", selected.getAttribute("name"));
 }
 
 let test;
@@ -252,25 +278,25 @@ function makeRandom() {
 }
 
 
-function getCategories() {
+function loadCustom() {
+    let num = document.forms["user-test"]["num"].value;
+    let category = document.getElementById("category").getAttribute("name");
+    let difficulty = document.getElementById("difficulty").textContent.toLowerCase();
+    
     let req = new XMLHttpRequest()
     req.onreadystatechange = function() {
         if(this.readyState == 4 && this.status == 200) {
-            addCategories(JSON.parse(req.responseText).trivia_categories);
+            //response code of 0 corresponds with successful request
+            if(JSON.parse(req.responseText).response_code == 0) {
+                test = JSON.parse(req.responseText).results;
+                createTest(test);
+            }
+            else {
+                alert("Request failed.");
+            }
         }
     }
-    req.open("GET", "https://opentdb.com/api_category.php");
+    req.open("GET", ("https://opentdb.com/api.php?amount=" + num + "&category=" + category + "&difficulty=" + difficulty));
+    console.log("https://opentdb.com/api.php?amount=" + num + "&category=" + category + "&difficulty=" + difficulty);
     req.send();
 }
-
-function addCategories(categories) {
-    let menu = document.getElementById("categories");
-    let html = "";
-    
-    for(let i=0; i<categories.length; i++) {
-        html += '<h3 class="option" onclick="setOption(this)">' + categories[i].name + '</h3>';
-    }
-    
-    menu.innerHTML = html;
-}
-

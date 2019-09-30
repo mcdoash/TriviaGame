@@ -39,7 +39,7 @@
                 
                 <form name="user-test">
                     <h1>Create your own</h1>
-                    <input type="number" placeholder="# Questions" min="1" max="99">
+                    <input type="number" name="num" placeholder="# Questions" min="1" max="99">
                     
                     <div class="dropbtn">
                         <h3 id="category">Category...</h3>
@@ -56,6 +56,8 @@
                             <h3 class="option" onclick="setOption(this)">Hard</h3>
                         </div>
                     </div>
+                    
+                    <div class="button" id="custom-test" onclick="loadCustom()">Load</div>
                 </form>
                 
                 <hr>
