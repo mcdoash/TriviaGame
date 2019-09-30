@@ -17,8 +17,19 @@
 
     <body onload="getCategories()">
         <div id="wrapper">
+            
+            <!--loading modal-->
+            <div id="modal">
+                <div id="modal-content">
+                    <h1>Loading...</h1>
+                    <div class="spinner"></div>
+                </div>
+            </div>
+            
             <!--test creation screen-->
             <div id="create-test">
+                
+                <!--form for tests to be loaded from trivia.js-->
                 <form name="premade-test" id="premade">
                     <h1>Pre-made Test</h1>
                     <div class="dropbtn">
@@ -37,6 +48,7 @@
                 
                 <hr>
                 
+                <!--form for tests created from open trivia database-->
                 <form name="user-test">
                     <h1>Create your own</h1>
                     <input type="number" name="num" placeholder="# Questions" min="1" max="99">

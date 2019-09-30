@@ -45,6 +45,10 @@ let test;
 Loads a test from the pre-existing 6 defined in triva.js
 */
 function loadTest() {
+    //show loading modal
+    let modal = document.getElementById("modal");
+    modal.style.display = "block";
+    
     //get test number
     testNum = document.getElementById("test-num").textContent;
     
@@ -96,11 +100,13 @@ function createTest(test) {
     let score = document.getElementById("score");
     score.innerHTML = "<sup></sup>&frasl;<sub>" + test.length + "</sub>";
     
-    //remove create test screen and show test screen 
+    //remove loadin modal, create test screen and show test screen 
     let createScreen = document.getElementById("create-test");
     let testScreen = document.getElementById("play-test");
     document.getElementById("test").innerHTML = html;
+    let modal = document.getElementById("modal");
     
+    modal.style.display = "none";
     createScreen.style.display = "none";
     testScreen.style.display = "block";
 }
@@ -228,7 +234,10 @@ function incorrectAnswer(selected) {
 Clears all answers from the test 
 */
 function clearTest() {
-    //ask user 
+    //confirm clear test
+    if(!confirm("Are you sure you want to clear the test?")) {
+        return;
+    }
     
     //clear question styling 
     clearStyling();
@@ -279,7 +288,10 @@ function clearStyling() {
 
 
 function newTest() {
-    //remove test screen and show create test screen 
+    //clear test
+    clearTest();
+    
+    //remove test screen and loading modal and show create test screen 
     let createScreen = document.getElementById("create-test");
     let testScreen = document.getElementById("play-test");
     
@@ -301,6 +313,10 @@ function makeRandom() {
 
 
 function loadCustom() {
+    //show loading modal
+    let modal = document.getElementById("modal");
+    modal.style.display = "block";
+    
     let num = document.forms["user-test"]["num"].value;
     let categoryId = document.getElementById("category").getAttribute("name");
     let difficulty = document.getElementById("difficulty").textContent.toLowerCase();
