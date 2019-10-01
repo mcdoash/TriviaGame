@@ -67,7 +67,8 @@ function loadTest() {
         return;
     }
     
-    document.getElementById("test-title").textContent = testNum;
+    document.getElementById("test-title").innerHTML = testNum;
+    document.getElementById("test info").innerHTML = "";
     
     test = tests[testNum];
     
@@ -88,12 +89,20 @@ function loadRandom() {
         if(this.readyState == 4 && this.status == 200) {
             //response code of 0 corresponds with successful request
             if(JSON.parse(req.responseText).response_code == 0) {
+                //set test info
+                document.getElementById("test-title").innerHTML = "Random Test";
+                document.getElementById("test info").innerHTML = "";
+                
+                //set and create test
                 test = JSON.parse(req.responseText).results;
                 createTest(test);
             }
             //unsuccessful request
             else {
                 alert("Request failed.");
+                
+                //remove loading modal
+                document.getElementById("modal").style.display = "none";
             }
         }
     }
@@ -112,16 +121,9 @@ function loadCustom() {
     
     //get test parameters
     let num = document.forms["user-test"]["num"].value;
+    let category = document.getElementById("category").textContent;
     let categoryId = document.getElementById("category").getAttribute("name");
     let difficulty = document.getElementById("difficulty").textContent.toLowerCase();
-    
-    //set test info
-    let testInfo = document.getElementById("test info");
-    let testTitle = document.getElementById("test-title");
-    let category = document.getElementById("category").textContent;
-
-    testTitle.innerHTML = category;
-    testInfo.innerHTML = difficulty + " | " + num + " questions";
     
     
     //trivia request
@@ -130,12 +132,20 @@ function loadCustom() {
         if(this.readyState == 4 && this.status == 200) {
             //response code of 0 corresponds with successful request
             if(JSON.parse(req.responseText).response_code == 0) {
+                //set test info
+                document.getElementById("test-title").innerHTML = category;
+                document.getElementById("test info").innerHTML = difficulty + " | " + num + " questions";
+                
+                //set and create test
                 test = JSON.parse(req.responseText).results;
                 createTest(test);
             }
             //unsuccessful request
             else {
-                alert("Request failed.");
+                alert("Request failed. Please select all values.");
+                
+                //remove loading modal
+                document.getElementById("modal").style.display = "none";
             }
         }
     }
@@ -368,6 +378,12 @@ Removes the trivia game screen and brings up the create test screen to allow use
 function newTest() {
     //clear test
     clearTest();
+    
+    //reset forms
+    document.getElementById("test-num").textContent = "Choose test...";
+    document.getElementById("user-test").reset(); //resets number of questions
+    document.getElementById("category").textContent = "Category...";
+    document.getElementById("difficulty").textContent = "Difficulty...";
     
     //remove test screen and show create test screen 
     let createScreen = document.getElementById("create-test");
