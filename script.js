@@ -1,7 +1,7 @@
 let test; //global test variable for current test
 
 /*
-Gets a list of all the available categories from open trivia database and adds it to the dropdown menu (called on load)
+Gets a list of all the available categories from open trivia database and adds it to the drop-down menu (called on load)
 */
 function getCategories() {
     let req = new XMLHttpRequest()
@@ -11,7 +11,7 @@ function getCategories() {
             //get the list of categories
             let categories = JSON.parse(req.responseText).trivia_categories;
             
-            //get the dropdown for categories
+            //get the drop-down for categories
             let menu = document.getElementById("categories");
             let html = "";
             
@@ -29,7 +29,7 @@ function getCategories() {
 
 
 /*
-Sets the selected option in a dropdown
+Sets the selected option in a drop-down
 */
 function setOption(selected) {
     let options = selected.parentNode.children;
@@ -55,22 +55,23 @@ function setOption(selected) {
 Loads a test from the pre-existing 6 defined in triva.js
 */
 function loadTest() {
-    //show loading modal
-    let modal = document.getElementById("modal");
-    modal.style.display = "block";
-    
     //get test number
     testNum = document.getElementById("test-num").textContent;
+    test = tests[testNum];
     
-    if(!testNum) {
+    //if no test was selected, show alert and quit
+    if(test == null) {
         alert("Please select a test to load.");
         return;
     }
     
+    //show loading modal
+    let modal = document.getElementById("modal");
+    modal.style.display = "block";
+    
+    //set test info
     document.getElementById("test-title").innerHTML = testNum;
     document.getElementById("test info").innerHTML = "";
-    
-    test = tests[testNum];
     
     createTest(test);    
 }
@@ -154,13 +155,19 @@ function loadCustom() {
 }
 
 
+/*
+Creates and displays a trivia test, removing the create test screen and showing the trivia screen
+@param      test    an array with all of the test questions and their corresponding values (correct answer, incorrect answer, difficulty, category, type, question text)
+*/
 function createTest(test) {
     let html = "";
     let q;
 
+    //iterate over every question
     for(let i=0; i<test.length; i++) {
         q = test[i];
         
+        //add question info to html string
         html += '<div class="question" id="q' + i + '"><h3>' + q.question + '<span class="tooltip"><p>Category: ' + q.category + '<br/>Difficulty: ' + q.difficulty + '</span></h3>';
 
         //get options
@@ -183,22 +190,21 @@ function createTest(test) {
         for(let x=0; x<options.length; x++) {
             html += '<label><input type="radio" name="' + i + '" value="' + options[x] + '">' + options[x] +'</label>'
         }
+        //add options to html string
         html += '</div>';
     }
+    
+    //add the test html to the page
+    document.getElementById("test").innerHTML = html;
     
     //display score num
     let score = document.getElementById("score");
     score.innerHTML = "<sup></sup>&frasl;<sub>" + test.length + "</sub>";
     
-    //remove loadin modal, create test screen and show test screen 
-    let createScreen = document.getElementById("create-test");
-    let testScreen = document.getElementById("play-test");
-    document.getElementById("test").innerHTML = html;
-    let modal = document.getElementById("modal");
-    
-    modal.style.display = "none";
-    createScreen.style.display = "none";
-    testScreen.style.display = "block";
+    //remove loading modal, create test screen and show test screen 
+    document.getElementById("modal").style.display = "none";
+    document.getElementById("create-test").style.display = "none";
+    document.getElementById("play-test").style.display = "block";
 }
 
 
@@ -217,15 +223,18 @@ function checkTest() {
     for(let i=0; i<test.length; i++) {
         let options = document.getElementsByName(i);
         let qAnswered = false;
+        
         //iterate through each option in question
         for(let x=0; x<options.length; x++) {
             if(options[x].checked) {
-                
                     qAnswered = true;
+                
+               //question was answered correctly
                 if(options[x].value.localeCompare(test[i].correct_answer) === 0) {
                     correct.push(options[x]);
                     numCorrect++;
                 }
+                //question was answered incorrectly
                 else {
                     incorrect.push(options[x]);
                 }
@@ -235,7 +244,7 @@ function checkTest() {
         if(qAnswered == false) {
             allAnswered = false;
 
-            //get the assoicated question div and add unaswered class
+            //get the associated question div and add unaswered class (red text styling)
             let question = document.getElementById("q" + i);
             question.classList.add("unanswered");
         }
@@ -246,7 +255,7 @@ function checkTest() {
         alert("Please answer all questions.");
         return;
     }
-    //if all answers were answered, we can  show styling for graded test
+    //if all answers were answered, show styling for graded test
     else {
         //set styling for all correct answers
         for(let i=0; i<correct.length; i++) {
@@ -259,7 +268,7 @@ function checkTest() {
         //disable all options
         for(let i=0; i<test.length; i++) {
             let options = document.getElementsByName(i);
-            //diable each option in question
+            //disable each option in question
             for(let x=0; x<options.length; x++) {
                 options[x].disabled = true;
             }
@@ -280,18 +289,22 @@ function checkTest() {
 Adds styling for correct answers, and span with checkmark/correct designation
 */
 function correctAnswer(selected) {
-    //gets the assoicated question div
+    //gets the associated question div
     let question = selected.parentElement.parentElement;
-    
     question.classList.add("correct");
     
+    //create span for feedback
     let feedbackBar = document.createElement("span");
     feedbackBar.setAttribute("class", "status");
     
+    //create check icon
     let check = document.createElement("i");
     check.classList.add("fas", "fa-check-circle");
+    
+    //add text
     let text = document.createTextNode(" Correct!");
     
+    //append elements and insert before question
     feedbackBar.appendChild(check);
     feedbackBar.appendChild(text);
     question.insertBefore(feedbackBar, question.childNodes[0]);
@@ -299,21 +312,25 @@ function correctAnswer(selected) {
 
 
 /*
-Adds styling for incorrect answers, and span with checkmark/incorrect designation
+Adds styling for incorrect answers, and span with x/incorrect designation
 */
 function incorrectAnswer(selected) {
-    //gets the assoicated question div
+    //gets the associated question div
     let question = selected.parentElement.parentElement;
-    
     question.classList.add("incorrect");
     
+    //create span for feedback
     let feedbackBar = document.createElement("span");
     feedbackBar.setAttribute("class", "status");
     
+    //create x icon
     let x = document.createElement("i");
     x.classList.add("fas", "fa-times-circle");
+    
+    //add text
     let text = document.createTextNode(" Incorrect!");
     
+    //append elements and insert before question
     feedbackBar.appendChild(x);
     feedbackBar.appendChild(text);
     question.insertBefore(feedbackBar, question.childNodes[0]);
@@ -321,7 +338,7 @@ function incorrectAnswer(selected) {
 
 
 /*
-Clears all answers from the test 
+Clears all selected answers from the test, re-enables all options, enable test check, reset score
 */
 function clearTest() {
     //confirm clear test
@@ -333,13 +350,13 @@ function clearTest() {
     clearStyling();
     
     //enable check test button
-        document.getElementById("checkbtn").setAttribute("onclick", "checkTest()");
-        document.getElementById("checkbtn").classList.remove("disabled");
+    document.getElementById("checkbtn").setAttribute("onclick", "checkTest()");
+    document.getElementById("checkbtn").classList.remove("disabled");
     
-    //enable and unselect all options
+    //enable and un-select all options
     for(let i=0; i<test.length; i++) {
         let options = document.getElementsByName(i);
-        //diable each option in question
+        //disable each option in question
         for(let x=0; x<options.length; x++) {
             options[x].disabled = false;
             options[x].checked = false;
@@ -353,16 +370,16 @@ function clearTest() {
 
 
 /*
-Clears styling for incorrect, correct, and unasnwered questions, therefore setting it to the "defaul" state
-@param      feedback    true if feebackBars should be removed
-                        false if it shoulf not
+Clears styling for incorrect, correct, and unanswered questions, therefore setting it to the "default" state
+@param      feedback    true if feedback bars should be removed
+                        false if it should not
 */
 function clearStyling() {
     let questions = document.getElementsByClassName("question");
     let feedbackBar = document.getElementsByClassName("status");
     
+    //iterate through each question and remove styling
     for(let i=0; i<questions.length; i++) {
-        
         questions[i].classList.remove("incorrect", "correct", "unanswered");
         
         //removes all span with check/x mark
@@ -371,6 +388,7 @@ function clearStyling() {
        }
     }
 }
+
 
 /*
 Removes the trivia game screen and brings up the create test screen to allow user to create a new test
